@@ -1,8 +1,7 @@
-import { prisma } from "../../../../generated/prisma-client";
-
+//import { prisma } from "../../../../generated/prisma-client";
 export default {
   Query: {
-    searchUser: async (_, { term }) => {
+    searchUser: async (_, { term }, { prisma }) => {
       const users = await prisma.users({
         where: {
           OR: [

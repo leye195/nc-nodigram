@@ -3,7 +3,7 @@ export default {
     createAccount: async (
       _,
       { username, email, firstName = "", lastName = "", bio = "" },
-      { prisma,request }
+      { prisma }
     ) => {
       const user = await prisma.createUser({
         username,
