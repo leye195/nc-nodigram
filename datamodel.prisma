@@ -5,43 +5,42 @@ type User {
   firstName: String
   lastName: String
   bio:String
-  post:[Post!]!
-  likes:[Like!]!
-  comments:[Comment!]!
+  post:[Post!]! @relation(name:"PostsOfUser",onDelete:CASCADE)
+  likes:[Like!]! @relation(name:"LikesOfUser",onDelete:CASCADE)
+  comments:[Comment!]! @relation(name:"CommentsOfUser",onDelete:CASCADE)
+  rooms:[Room!]!
   followers:[User!]! @relation(name:"FollowRelation")
   following:[User!]! @relation(name:"FollowRelation")
-  rooms:[Room!]!
   loginSecret: String
 }
  
-
 type Post{
   id: ID! @id
-  user:User!
-  files:[File!]!
+  user:User! @relation(name:"PostsOfUser")
+  files:[File!]! @relation(name:"FilesOfPost",onDelete:CASCADE)
   location: String!
   caption: String!
-  likes:[Like!]!
-  comments:[Comment!]!
+  likes:[Like!]! @relation(name:"LikeOfPost",onDelete:CASCADE)
+  comments:[Comment!]! @relation(name:"CommentsOfPost",onDelete:CASCADE)
 }
 
 type Like{
   id: ID! @id
-  user:User!
-  post:Post!
+  user:User @relation(name:"LikesOfUser")
+  post:Post @relation(name:"LikeOfPost")
 }
 
 type Comment{
   id: ID! @id
   text:String!
-  user:User!
-  post:Post!
+  user:User @relation(name:"CommentsOfUser")
+  post:Post @relation(name:"CommentsOfPost")
 }
 
 type File{
   id: ID! @id
   url:String!
-  post:Post!
+  post:Post @relation(name:"FilesOfPost") 
 }
 
 type Room{
