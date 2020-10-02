@@ -1,9 +1,10 @@
-import { prisma } from "../../../../generated/prisma-client";
-import { isAuthenticated } from "../../../middlewares";
-
 export default {
   Mutation: {
-    upload: async (_, { caption, files }, { request, isAuthenticated }) => {
+    upload: async (
+      _,
+      { caption, files },
+      { request, isAuthenticated, prisma }
+    ) => {
       try {
         isAuthenticated(request);
         const { user } = request;
