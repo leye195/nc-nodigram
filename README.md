@@ -1,6 +1,6 @@
-# nodigram
+# nodigram-backend
 
-Instagram clone with Express + Prisma + React and React Native
+Instagram clone with Express + Prisma + React and React Native (backend)
 
 ## User Stories
 
