@@ -1,7 +1,14 @@
+import { prisma } from "../../../generated/prisma-client";
+import { COMMENT_FRAGMENT } from "../../fragments";
+
 export default {
   Post: {
     files: ({ id }, _, { prisma }) => prisma.post({ id }).files(),
-    comments: ({ id }, _, { prisma }) => prisma.post({ id }).comments(),
+    comments: ({ id }, _, {}) =>
+      prisma
+        .post({ id })
+        .comments()
+        .$fragment(COMMENT_FRAGMENT),
     user: ({ id }, _, { prisma }) => prisma.post({ id }).user(),
     isLiked: async (parent, _, { request, prisma }) => {
       const { user } = request;
@@ -15,6 +22,14 @@ export default {
         console.log(e);
         return false;
       }
+    },
+    commentCount: async ({ id }, _, { prisma }) => {
+      const commentCount = await prisma
+        .commentsConnection({ where: { post: { id } } })
+        .aggregate()
+        .count();
+      //console.log(commentCount);
+      return commentCount;
     },
     likeCount: async ({ id }, _, { prisma }) => {
       const likeCount = await prisma

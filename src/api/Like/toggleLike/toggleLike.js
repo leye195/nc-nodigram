@@ -27,8 +27,8 @@ export default {
               },
             },
           });
+          return true;
         }
-        return true;
       } catch (e) {
         return false;
       }
