@@ -10,6 +10,9 @@ type User {
   isFollowing: Boolean!
   bio: String
   post: [Post!]!
+  postsCount: Int!
+  followersCount: Int!
+  followingCount: Int!
   likes: [Like!]!
   comments: [Comment!]!
   followers: [User!]!

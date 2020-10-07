@@ -1,5 +1,5 @@
 import { prisma } from "../../../generated/prisma-client";
-import { COMMENT_FRAGMENT } from "../../fragments";
+import { COMMENT_FRAGMENT, FULL_POST_USER_FRAGMENT } from "../../fragments";
 
 export default {
   Post: {
@@ -9,7 +9,11 @@ export default {
         .post({ id })
         .comments()
         .$fragment(COMMENT_FRAGMENT),
-    user: ({ id }, _, { prisma }) => prisma.post({ id }).user(),
+    user: ({ id }, _, { prisma }) =>
+      prisma
+        .post({ id })
+        .user()
+        .$fragment(FULL_POST_USER_FRAGMENT),
     isLiked: async (parent, _, { request, prisma }) => {
       const { user } = request;
       const { id } = parent;
@@ -28,7 +32,6 @@ export default {
         .commentsConnection({ where: { post: { id } } })
         .aggregate()
         .count();
-      //console.log(commentCount);
       return commentCount;
     },
     likeCount: async ({ id }, _, { prisma }) => {

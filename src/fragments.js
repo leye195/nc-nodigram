@@ -1,7 +1,9 @@
 export const USER_FRAGMENT = `
-        id
-        username
-        avatar
+    id
+    username
+    avatar
+    firstName
+    lastName
 `;
 
 export const FILE_FRAGMENT = `
@@ -40,4 +42,35 @@ export const ROOM_FRAGMENT = `
             ${MESSAGE_FRAGMENT}
         }
     }
+`;
+
+export const PROFILE_FRAGMENT = `
+    fragment ProfileParts on User{
+        ${USER_FRAGMENT}
+        bio
+        following{
+            ${USER_FRAGMENT}
+        }
+        followers{
+            ${USER_FRAGMENT}
+        }
+        post{
+            id
+            files{
+                ${FILE_FRAGMENT}
+            }
+        }
+    }
+`;
+
+export const FULL_POST_USER_FRAGMENT = `
+  fragment FullPostParts on User{
+       ${USER_FRAGMENT}
+        post{
+            id
+            files{
+                ${FILE_FRAGMENT}
+            }
+        }
+  }
 `;

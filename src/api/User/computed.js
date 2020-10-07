@@ -2,7 +2,7 @@ import { prisma } from "../../../generated/prisma-client";
 
 export default {
   User: {
-    fullName: (parent) => {
+    fullName: async (parent) => {
       //parent는 상위 resolver에서 반환된 값을 가쟈옴
       return `${parent.firstName} ${parent.lastName}`;
     },
@@ -24,5 +24,23 @@ export default {
       const { id: parentId } = parent;
       return user.id === parentId;
     },
+    postsCount: ({ id }) =>
+      prisma
+        .postsConnection({ where: { user: { id } } })
+        .aggregate()
+        .count(),
+    followingCount: ({ id }) => {
+      return prisma
+        .usersConnection({
+          where: { followers_some: { id } },
+        })
+        .aggregate()
+        .count();
+    },
+    followersCount: ({ id }) =>
+      prisma
+        .usersConnection({ where: { following_some: { id } } })
+        .aggregate()
+        .count(),
   },
 };
