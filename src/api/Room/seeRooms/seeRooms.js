@@ -10,6 +10,7 @@ export default {
           where: { participants_some: { id: user.id } },
         })
         .$fragment(ROOM_FRAGMENT);
+      console.log(rooms);
       return rooms;
     },
   },
