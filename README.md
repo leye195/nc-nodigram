@@ -23,3 +23,4 @@ Instagram clone with Express + Prisma + React and React Native (backend)
 - [x] See Rooms
 - [x] See Room
 - [x] Receive DM (RealTime)
+- [x] Explore Post
