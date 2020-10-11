@@ -1,12 +1,12 @@
+import { prisma } from "../../../../generated/prisma-client";
 import { ROOM_FRAGMENT } from "../../../fragments";
 
 export default {
   Query: {
-    seeRoom: async (_, { roomId }, { request, isAuthenticated, prisma }) => {
+    seeRoom: async (_, { roomId }, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
       const canSee = await prisma.$exists.room({
-        //id: roomId,
         participants_some: { id: user.id },
       });
       if (canSee) {

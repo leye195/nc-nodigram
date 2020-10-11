@@ -10,7 +10,7 @@ export default {
           where: { participants_some: { id: user.id } },
         })
         .$fragment(ROOM_FRAGMENT);
-      return rooms;
+      return rooms.filter((r) => r.messages.length > 0);
     },
   },
 };

@@ -1,8 +1,6 @@
-import { prisma } from "../../../../generated/prisma-client";
-
 export default {
   Query: {
-    explorePost: async (_, __, { request, isAuthenticated }) => {
+    explorePost: async (_, __, { request, isAuthenticated, prisma }) => {
       isAuthenticated(request);
       const { user } = request;
       const users = await prisma.users({
